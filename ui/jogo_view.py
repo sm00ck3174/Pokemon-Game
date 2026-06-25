@@ -107,7 +107,11 @@ class JogoPokemon(tk.Tk):
 
     def _carregar_imagens(self):
         """Carrega e redimensiona os recursos de imagem da pasta assets/."""
-        pasta_assets = os.path.join(os.path.dirname(__file__), "..", "assets")
+        import sys
+        if getattr(sys, 'frozen', False):
+            pasta_assets = os.path.join(sys._MEIPASS, "assets")
+        else:
+            pasta_assets = os.path.join(os.path.dirname(__file__), "..", "assets")
 
         tipos = {
             "Fogo":     "pokemon_fogo.png",
@@ -135,12 +139,22 @@ class JogoPokemon(tk.Tk):
         if os.path.exists(caminho_fundo):
             try:
                 imagem_fundo = Image.open(caminho_fundo).resize(
-                    (self.winfo_screenwidth(), self.winfo_screenheight()), Image.Resampling.LANCZOS
+                    (1024, 768), Image.Resampling.LANCZOS
                 )
                 self.imagem_fundo = ImageTk.PhotoImage(imagem_fundo)
             except Exception as e:
                 print(f"Erro ao carregar fundo: {e}")
                 self.imagem_fundo = None
+
+        # Carrega o ícone da janela
+        caminho_icone = os.path.join(pasta_assets, "pokemon_icon.png")
+        if os.path.exists(caminho_icone):
+            try:
+                img_icone = ImageTk.PhotoImage(file=caminho_icone)
+                self.iconphoto(False, img_icone)
+                self.imagem_icone = img_icone  # Mantém uma referência para evitar garbage collection
+            except Exception as e:
+                print(f"Erro ao carregar ícone: {e}")
 
     def _aplicar_fundo(self):
         """Aplica a imagem de fundo no label raiz da janela."""
@@ -533,10 +547,14 @@ class JogoPokemon(tk.Tk):
         self.after(delay_reabilitar, self._reabilitar_botoes)
 
     def _reabilitar_botoes(self):
-        """Reabilita os botões de ação se os widgets ainda existirem."""
-        for btn in self.botoes_ataque:
+        """Reabilita os botões de ação se os widgets ainda existirem e tiverem mana."""
+        for indice, btn in enumerate(self.botoes_ataque):
             if btn.winfo_exists():
-                btn.config(state="normal")
+                ataque = self.jogo.pokemon_jogador.ataques[indice]
+                if ataque.tem_mana():
+                    btn.config(state="normal")
+                else:
+                    btn.config(state="disabled")
 
     def finalizar_batalha(self, resultado):
         """Encerra o combate salvando o log e decidindo a próxima tela."""
@@ -544,17 +562,17 @@ class JogoPokemon(tk.Tk):
 
         if resultado == "Vitória":
             self._animar_vitoria()
-            self.after(500, lambda: messagebox.showinfo(
-                "Vitória!", f"Você derrotou o {self.jogo.oponente_atual.nome}!"
-            ))
-            self.after(600, self.preparar_proxima_batalha)
+            def pos_vitoria():
+                messagebox.showinfo("Vitória!", f"Você derrotou o {self.jogo.oponente_atual.nome}!")
+                self.preparar_proxima_batalha()
+            self.after(500, pos_vitoria)
         else:
             self._animar_derrota()
-            self.after(500, lambda: messagebox.showerror(
-                "Derrota", f"Seu {self.jogo.pokemon_jogador.nome} desmaiou... Fim de jogo."
-            ))
-            self.jogo.jogador_nome = ""
-            self.after(600, self.tela_login)
+            def pos_derrota():
+                messagebox.showerror("Derrota", f"Seu {self.jogo.pokemon_jogador.nome} desmaiou... Fim de jogo.")
+                self.jogo.jogador_nome = ""
+                self.tela_login()
+            self.after(500, pos_derrota)
 
     # ──────────────────────────────────────────────
     # HISTÓRICO DE BATALHAS

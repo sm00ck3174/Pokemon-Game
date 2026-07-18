@@ -3,8 +3,38 @@
 Este projeto é um jogo de batalha Pokémon por turnos, desenvolvido em Python utilizando a biblioteca **Tkinter** para a interface gráfica e **SQLite** para persistência do histórico de batalhas. O design do código segue o padrão de arquitetura **MVC (Model-View-Controller)** para manter o projeto organizado, modular e de fácil manutenção.
 
 ---
+##  Screenshots
 
-## 🛠️ Tecnologias Utilizadas
+Aqui estão algumas capturas de tela mostrando a interface e a jogabilidade do projeto:
+
+<div align="center">
+  <table>
+    <tr>
+      <td valign="top" width="50%">
+        <p align="center"><b>Tela de Login / Histórico</b></p>
+        <img src="screenshots/login.png" alt="Tela de Login" style="max-width: 100%;">
+      </td>
+      <td valign="top" width="50%">
+        <p align="center"><b>Seleção de Pokémon</b></p>
+        <img src="screenshots/selecao.png" alt="Seleção de Pokémon" style="max-width: 100%;">
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" width="50%">
+        <p align="center"><b>Arena de Batalha</b></p>
+        <img src="screenshots/batalha.png" alt="Arena de Batalha" style="max-width: 100%;">
+      </td>
+      <td valign="top" width="50%">
+        <p align="center"><b>Fim de Jogo e Pontuação</b></p>
+        <img src="screenshots/fim_de_jogo.png" alt="Fim de Jogo" style="max-width: 100%;">
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
+##  Tecnologias Utilizadas
 
 *   **Linguagem:** Python 3.10+
 *   **Interface Gráfica:** Tkinter (incluso no Python)
@@ -13,7 +43,7 @@ Este projeto é um jogo de batalha Pokémon por turnos, desenvolvido em Python u
 
 ---
 
-## 📐 Arquitetura do Projeto (MVC)
+##  Arquitetura do Projeto (MVC)
 
 O código foi modularizado seguindo as boas práticas do padrão MVC:
 
@@ -32,14 +62,14 @@ graph TD
 
 ---
 
-## ✨ Funcionalidades e Características
+##  Funcionalidades e Características
 
 1.  **Escolha do Pokémon:** O jogador escolhe entre 5 Pokémon iniciais:
-    *   🔥 **Charmander** (Tipo Fogo)
-    *   💧 **Squirtle** (Tipo Água)
-    *   🍃 **Bulbasaur** (Tipo Planta)
-    *   ⚡ **Pikachu** (Tipo Elétrico)
-    *   🟤 **Eevee** (Tipo Normal)
+    *    **Charmander** (Tipo Fogo)
+    *    **Squirtle** (Tipo Água)
+    *    **Bulbasaur** (Tipo Planta)
+    *    **Pikachu** (Tipo Elétrico)
+    *    **Eevee** (Tipo Normal)
 2.  **Sistema de Batalha Avançado:**
     *   **Vantagens de Tipo:** Ataques super eficazes causam **2x** de dano (ex: Água contra Fogo), e ataques pouco eficazes causam **0.5x** de dano.
     *   **Precisão e Mana:** Ataques poderosos têm menor chance de acerto (Precisão) e limite de usos (Mana). Ataques básicos têm 100% de acerto e mais usos.
@@ -52,7 +82,7 @@ graph TD
 
 ---
 
-## 📁 Estrutura de Diretórios
+##  Estrutura de Diretórios
 
 ```text
 Pokemon-Game-Comentado/
@@ -76,11 +106,11 @@ Pokemon-Game-Comentado/
 
 ---
 
-## 🚀 Como Executar o Projeto
+##  Como Executar o Projeto
 
 Escolha uma das duas formas abaixo para iniciar o jogo:
 
-### ⚡ Modo Rápido: Usando o Executável Compilado (Recomendado)
+###  Modo Rápido: Usando o Executável Compilado (Recomendado)
 **Não precisa de Python nem de nenhuma dependência instalada.**
 1. Vá até a pasta raiz do projeto.
 2. Dê dois cliques no arquivo:
@@ -90,7 +120,7 @@ Escolha uma das duas formas abaixo para iniciar o jogo:
 
 ---
 
-### 💻 Modo Desenvolvedor: Executando via Código-Fonte (Python)
+###  Modo Desenvolvedor: Executando via Código-Fonte (Python)
 Use esta opção caso queira modificar o código-fonte do jogo.
 
 #### 1. Acessar a Pasta do Projeto
@@ -115,7 +145,7 @@ python main.py
 
 ---
 
-## 🎮 Como Jogar
+##  Como Jogar
 
 1.  **Faça Login:** Digite o nome do seu treinador na tela inicial. Se quiser ver os registros anteriores, clique em **"Ver Histórico"**.
 2.  **Escolha seu Pokémon:** Clique em um dos 5 cards com as imagens dos monstrinhos. Cada um possui vantagens exclusivas.
